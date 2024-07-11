@@ -70,7 +70,7 @@ body {
 .task-item {
     background-color: #C4DCD3;
     border: 2px solid #9c8e8e;
-    padding: 15px 15px 15px 60px; /* Добавлен отступ слева */
+    padding: 15px 15px 15px 60px; 
     margin-bottom: 10px;
     border-radius: 10px;
     position: relative;
