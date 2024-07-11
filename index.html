@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo List</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;700&display=swap');
+    </style>
+</head>
+<body>
+    <h2 class="to-do-text2">Day Tasks</h2>
+
+    <div class="vertical-line">
+        <h1 class="to-do-text">TO-DO</h1>
+        <p class="all-text"><img src="https://cdn.onlinewebfonts.com/svg/download_349412.png" width="38" height="38" align="top" />All tasks</p>
+        <p class="all-text"><img src="https://i.pinimg.com/originals/f4/47/d1/f447d177fc1b9c1715d3e0eeb85a9995.png" width="38" height="38" align="top" />Important</p>
+    </div>
+
+    <div class="tasks-container"></div>
+
+    <footer>
+        <div class="foot_my1">
+            <div class="form-popup" id="myForm">
+                <form action="#" class="form-container" id="taskForm">
+                    <label for="Tname"><b>Task name</b></label>
+                    <input type="text" name="Tname" class="Tname" required>
+
+                    <label for="Ttext"><b>Task text</b></label>
+                    <input type="text" name="Ttext" class="Ttext" required>
+
+                    <button type="submit" class="btn">Submit</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="open-button" onclick="openForm()"><img src="https://cdn1.iconfinder.com/data/icons/carbon-design-system-vol-7/32/task--add-1024.png" width="38" height="38" align="top" />Add task</button>
+        </div>
+    </footer>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        document.getElementById('taskForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let Tname = document.querySelector('.Tname').value;
+            let Ttext = document.querySelector('.Ttext').value;
+            console.log("Task name: ", Tname);
+            console.log("Task text: ", Ttext);
+
+            // Создание нового элемента задачи
+            const taskList = document.querySelector('.tasks-container');
+            const newTask = document.createElement('div');
+            newTask.classList.add('task-item');
+            newTask.innerHTML = `
+                <h3>${Tname}</h3>
+                <p>${Ttext}</p>
+                <button class="important-button" onclick="markAsImportant(this)">⭐</button>
+                <button class="delete-button" onclick="deleteTask(this)">Delete</button>
+            `;
+            taskList.appendChild(newTask);
+
+            // Очистка формы после добавления задачи
+            document.querySelector('.Tname').value = '';
+            document.querySelector('.Ttext').value = '';
+
+            closeForm();
+        });
+
+        function deleteTask(element) {
+            element.parentElement.remove();
+        }
+
+        function markAsImportant(element) {
+            const task = element.parentElement;
+            task.classList.toggle('important');
+            const taskList = document.querySelector('.tasks-container');
+            if (task.classList.contains('important')) {
+                taskList.prepend(task);
+            } else {
+                taskList.appendChild(task);
+            }
+        }
+        
+    </script>
+</body>
+</html>
